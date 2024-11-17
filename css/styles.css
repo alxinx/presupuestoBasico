@@ -1,5 +1,9 @@
 body{
-    background-color: #F1F2F7
+    background-color: #F1F2F7;
+}
+img{
+    width: 3em;
+    height: 3em;
 }
 .header{
     width: 100%;
@@ -27,13 +31,36 @@ body{
 
 .contenedor{
     padding: 20px;
+
 }
 
-.container-fluid{
-    background-color:#fff;
-    padding: 2%;
-    font-size: 12px;
+.contenedor h2{
+font-size: 20px;
+text-align: center;
 }
+.contenedor p{
+    font-size: 0.7em;
+    text-align: center;
+}
+
+.container-fluid {
+    margin-top: 5%;
+    background-color: #fff;
+    padding: 2%;
+    font-size: 0.7em;
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+}
+
+.container-fluid::after {
+    content: ""; /* Pseudo-elemento vacío */
+    position: absolute;
+    top: 40%; /* Inicia la línea al 25% del alto */
+    right: 0; /* Alineado a la derecha */
+    height: 40%; /* Línea ocupa el 50% de la altura del contenedor */
+    width: 1px; /* Ancho de la línea */
+    background-color: #595959; /* Color de la línea */
+}
+
 
 .container-fluid h5{
     font-size: 14px;
@@ -42,9 +69,40 @@ body{
     color: #232323
 }
 
+.container-fluid p{
+    text-align: center;
+    font-size: 12px;
+}
 
 .content{
     background-color: #F1F2F7
     padding: 30px;
+}
+
+
+
+#presupuestoDisponible{
+    color: #8E0000;
+    font-size: 2em;
+    text-align: center;
+    width: 100%;
+    padding: 5%;
+}
+
+#totalPresupuesto{
+    color: #4b4b4b;
+    font-size: 2em;
+    text-align: center;
+    width: 100%;
+    padding: 5%;
+}
+
+#totalGastadoPresupuesto{
+    color: #ff0a0a;
+    font-size: 2em;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    padding: 5%;
 }
 
