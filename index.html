@@ -4,11 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <title>Presupuesto</title>
 </head>
 <body>
-    hola como estas
+    <!--HEADER APP-->
+    <div class="col-md-12 header" >
+        <h1>Control de Presupuesto</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-xs-12 contenedor">
+            <!-- Fila para indicadores de control -->
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 container-fluid">
+                    <h5>Presupuesto Base</h5>
+                    <!-- Total Presupuesto 1 -->
+                    <div id="totalPresupuesto"></div>
+                    
+                </div> 
+                <div class="col-md-4 col-sm-4 col-xs-12 container-fluid">
+                    <h5>Presupuesto Disponible</h5>
+                    <div id="presupuestoDisponible"></div>
+                </div> 
+
+                <div class="col-md-4 col-sm-4 col-xs-12 container-fluid" >
+                    <h5>Total Gastado del Presupuesto</h5>
+                    <div id="totalGastadoPresupuesto"></div>
+                </div> 
+            </div>
+            <!-- Fin fila indicadores de control -->
+        </div>
+
+
+        
+        <div class="col-sm-4 col-xs-12 contenedor">
+            <!--Columna de Formulario de ingreso de items-->
+            <form action="" class="form-control">
+            <div class="col-md-12">
+                <label for="">Item</label>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-12">
+                <label for="">Valor</label>
+                <input type="text" class="form-control">
+            </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <!--Columna para tablas y para consejos de presupuestos-->
+    </div>
+
+
+    <div class="page-wrapper">
+       
+    </div>
+    <!--END HEADER APP-->
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
