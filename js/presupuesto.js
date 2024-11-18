@@ -16,16 +16,32 @@ function agregarItems(formulario){
             if((producto.value.trim().length) > 0){
                 nuevoProducto.push(producto.value);// ingreso en un array los elementos que me paso el formulario 
             }else{
-                throw new Error('El producto debe estar lleno')
+                throw new Error('El producto debe estar lleno');
+                return;
             }
         }else if(producto.id === 'valorItem'){
             //Verifico que sea un numero
-            let valor = producto.value.replace(/[^\d]/g, '');
+            let valor = parseInt(producto.value.replace(/[^\d]/g, ''));
+           
             if(valor > 0){
-                nuevoProducto.push(valor);
-            document.getElementById('nombreItem').value = ''
-            document.getElementById('nombreItem').focus();
-            document.getElementById('valorItem').value = 0
+                //Aqui valido cuanto presupuesto he gastado:
+                let totalGastado =document.getElementById('totalGastadoPresupuesto').innerText;
+                TotalGastado = parseInt(totalGastado.replace(/[^\d]/g, ''));
+                let control = parseInt((PRESUPUESTO - TotalGastado), 10);
+                console.log(control);
+                if(control >= valor ){
+                    nuevoProducto.push(valor);
+                    document.getElementById('nombreItem').value = ''
+                    document.getElementById('nombreItem').focus();
+                    document.getElementById('valorItem').value = 0
+
+
+                }else{
+                    let valorAGastar = convertirAPesos(control);
+                    document.getElementById('valorItem').focus();
+                    document.getElementById('valorItem').value = valorAGastar;
+                    throw new Error(`No puedes gastarte mas de ${valorAGastar}`);
+                }
             }else{
                 throw new Error('El valor del producto debe ser mayor a cero')
             }
@@ -155,20 +171,6 @@ const inputValor = document.getElementById('valorItem');
         desactivarBtn(valor);
     })
 });
-
-
-
-
-/*
-document.getElementById('nombreItem').addEventListener('blur', (e)=>{
-    valor = e.target.value;
-    desactivarBtn(valor);
-})
-document.getElementById('valorItem').addEventListener('blur', (e)=>{
-    valor = e.target.value;
-    desactivarBtn(valor);
-}) */
-
 
 
 function desactivarBtn(e){
