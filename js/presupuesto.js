@@ -107,7 +107,7 @@ function listaProductos(datosProductos){
                     <td>${datosProductos[index]['_nombreProducto']}</td>
                     <td>${convertirAPesos(datosProductos[index]['_costoProducto'])}</td>
                     <td>@mdo</td>
-                    <td><i class="bi bi-trash" id='borrar-${datosProductos[index]['_idProducto']}' onclick = 'borrarElemento(this)' style='cursor: pointer' ></i></td>
+                    <td><i class="bi bi-trash" id='${datosProductos[index]['_idProducto']}' onclick = 'borrarElemento(this.id)' style='cursor: pointer' ></i></td>
                   </tr>`;
         
     }
@@ -118,6 +118,25 @@ function listaProductos(datosProductos){
     document.getElementById('tablaDeGastos').innerHTML = tbl;
         
 }
+
+
+
+function borrarElemento(parametro){
+let idItem = parseInt(parametro);
+let idProductoEliminar = registro.find(registros => registro._idProducto === idItem);
+let itemEliminar = registro.findIndex(registros => registros._idProducto === idItem);
+registro.splice(itemEliminar, 1);
+//console.log(itemEliminar);
+
+let gastosRealizados= gastoTotal(registro);
+    //ACTUALIZO EL VALOR GASTADO
+document.getElementById('totalGastadoPresupuesto').innerHTML =  convertirAPesos(gastosRealizados);
+//actualizo presupuesto disponible
+document.getElementById('presupuestoDisponible').innerHTML = convertirAPesos(presupuestoDisponible(gastosRealizados));
+    listaProductos(registro);
+}
+
+
 
 
 
