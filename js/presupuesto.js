@@ -6,6 +6,21 @@ const PRESUPUESTO = 5000000;
 document.getElementById('totalPresupuesto').innerHTML = convertirAPesos(PRESUPUESTO);
 document.getElementById('presupuestoDisponible').innerHTML = convertirAPesos(PRESUPUESTO);
 
+let barraPresupuestoDisponible = document.getElementById('barraPresupuestoDisponible');
+let barraTotalGastado =  document.getElementById('barraTotalGastado');
+
+
+barraPresupuestoDisponible.innerHTML = `<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar bg-success" style="width:100%">100%</div>
+</div>`;
+
+barraTotalGastado.innerHTML = `<div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar bg-danger" style="width: 20%">0%</div>
+</div>` ;
+
+
+
+
 //AGREGO LOS ITEMS
 function agregarItems(formulario){
     let nuevosProductos = document.forms[formulario];
@@ -28,14 +43,11 @@ function agregarItems(formulario){
                 let totalGastado =document.getElementById('totalGastadoPresupuesto').innerText;
                 TotalGastado = parseInt(totalGastado.replace(/[^\d]/g, ''));
                 let control = parseInt((PRESUPUESTO - TotalGastado), 10);
-                console.log(control);
                 if(control >= valor ){
                     nuevoProducto.push(valor);
                     document.getElementById('nombreItem').value = ''
                     document.getElementById('nombreItem').focus();
                     document.getElementById('valorItem').value = 0
-
-
                 }else{
                     let valorAGastar = convertirAPesos(control);
                     document.getElementById('valorItem').focus();
@@ -57,7 +69,10 @@ function agregarItems(formulario){
     document.getElementById('totalGastadoPresupuesto').innerHTML =  convertirAPesos(gastosRealizados);
     //actualizo presupuesto disponible
     document.getElementById('presupuestoDisponible').innerHTML = convertirAPesos(presupuestoDisponible(gastosRealizados));
-    listaProductos(registro);
+
+calculoPorcentajeDisponible()
+calculoPorcentajeGastado();
+listaProductos(registro);
 }
 
 
@@ -126,18 +141,42 @@ let idItem = parseInt(parametro);
 let idProductoEliminar = registro.find(registros => registro._idProducto === idItem);
 let itemEliminar = registro.findIndex(registros => registros._idProducto === idItem);
 registro.splice(itemEliminar, 1);
-//console.log(itemEliminar);
 
 let gastosRealizados= gastoTotal(registro);
-    //ACTUALIZO EL VALOR GASTADO
+//ACTUALIZO EL VALOR GASTADO
 document.getElementById('totalGastadoPresupuesto').innerHTML =  convertirAPesos(gastosRealizados);
 //actualizo presupuesto disponible
 document.getElementById('presupuestoDisponible').innerHTML = convertirAPesos(presupuestoDisponible(gastosRealizados));
-    listaProductos(registro);
+calculoPorcentajeDisponible();
+calculoPorcentajeGastado();
+listaProductos(registro);
 }
 
 
 
+
+
+
+
+function calculoPorcentajeDisponible(){
+    let gastosTotales =  gastoTotal(registro);
+    let porcentajeGastado = parseInt((gastosTotales/PRESUPUESTO)*10);
+    let porcentajeDisponible = 100-((gastosTotales/PRESUPUESTO)*100);
+    barraPresupuestoDisponible.innerHTML = `<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar bg-success" style="width:${porcentajeDisponible}%">${porcentajeDisponible}%</div>
+</div>`;
+}
+
+function calculoPorcentajeGastado(){
+    let gastosTotales =  gastoTotal(registro);
+    let porcentajeGastado = parseInt((gastosTotales/PRESUPUESTO)*100);
+    barraTotalGastado.innerHTML = `<div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar bg-danger" style="width: ${porcentajeGastado}%">${porcentajeGastado}%</div>
+    </div>` ;
+    
+    return porcentajeGastado;
+    
+}
 
 
 
@@ -155,8 +194,8 @@ function convertirAPesos(parametro){
 }
 
 function styleRow(idRow){
-    let row = parseInt(idRow) % 2;
-    return row === 1 ?  'table-secondary' :  'table-ligth';     
+    //let row = parseInt(idRow) % 2;
+    return parseInt(idRow) % 2 ?  'table-secondary' :  'table-ligth';     
 }
 
 
@@ -176,7 +215,7 @@ document.getElementById('valorItem').addEventListener('input', (e)=>{
 
 
 const inputItems = document.getElementById('nombreItem');
-['burn', 'focus', 'change'].forEach( evento =>{
+['blur', 'focus', 'change'].forEach( evento =>{
     inputItems.addEventListener(evento, (e)=>{
         let valor = e.target.value.trim()
         desactivarBtn(valor);
@@ -184,7 +223,7 @@ const inputItems = document.getElementById('nombreItem');
 });
 
 const inputValor = document.getElementById('valorItem');
-['burn', 'focus', 'change'].forEach( evento =>{
+['blur', 'focus', 'change'].forEach( evento =>{
     inputItems.addEventListener(evento, (e)=>{
         let valor = e.target.value.trim();
         desactivarBtn(valor);
